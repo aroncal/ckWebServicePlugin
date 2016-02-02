@@ -199,6 +199,10 @@ EOF;
 
   protected function loadModuleClassFile($module)
   {
+  	//AITOR: ignoramos los modulos de sfGuardPlugin que son incompatibles
+  	if (! strncmp($module, 'sfGuard', 7))
+  			return false;
+  	
     $module_classfile = sfConfig::get('sf_app_module_dir').'/'.$module.'/actions/actions.class.php';
 
     return file_exists($module_classfile) && !preg_match('/class(.*)Actions(.*)extends(.*)auto/', file_get_contents($module_classfile)) ? require_once($module_classfile) : false;
